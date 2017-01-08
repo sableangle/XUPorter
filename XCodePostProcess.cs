@@ -10,6 +10,7 @@ using System.IO;
 
 public static class XCodePostProcess
 {
+	//All code Below is only for demo the function
     #if UNITY_EDITOR
     [PostProcessBuild (200)]
     public static void OnPostProcessBuild (BuildTarget target, string pathToBuiltProject)
@@ -50,48 +51,12 @@ public static class XCodePostProcess
 
     private static void EditorPlist(string filePath)
     {
-		string FacebookAppId = PlayerPrefs.GetString ("FBAppId");
-		string FacebookDisplayName = PlayerPrefs.GetString ("FacebookDisplayName");
-		string facebookFans = PlayerPrefs.GetString ("facebookFans");
-		string facebookShare = PlayerPrefs.GetString ("facebookShare");
-
-		string GoogleClientId = PlayerPrefs.GetString ("GoogleId");
-		string Google_REVERSED_ClientId = PlayerPrefs.GetString ("Google_REVERSED_ClientId");
-
-		string E758_game_name = PlayerPrefs.GetString ("E758_game_name");
-		string E758_game_id = PlayerPrefs.GetString ("E758_game_id");
-		string E758_fac_id = PlayerPrefs.GetString ("E758_fac_id");
-		string E758_fac_key = PlayerPrefs.GetString ("E758_fac_key");
-		string Game_Web_Url = PlayerPrefs.GetString ("Game_Web_Url");
-		string com_hagame_sdk_fb_share_desc = PlayerPrefs.GetString ("com_hagame_sdk_fb_share_desc");
-
+		
 
         XCPlist list =new XCPlist(filePath);
         string PlistAdd =  
 		@"
-		<key>FacebookAppID</key>
-			<string>"+FacebookAppId+@"</string>
-		<key>CFBundleURLTypes</key>
-        <array>
-            <dict>
-	            <key>CFBundleURLSchemes</key>
-	            <array>
-					<string>fb"+ FacebookAppId +@"</string>
-	            </array>
-            </dict>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>"+ PlayerSettings.iPhoneBundleIdentifier +@"</string>
-				</array>
-			</dict>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>"+ Google_REVERSED_ClientId +@"</string>
-				</array>
-			</dict>
-        </array>
+		
 
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
@@ -112,28 +77,7 @@ public static class XCodePostProcess
 			<string>googlechrome</string>
 			<string>googlechrome-x-callback</string>
 			<string>hasgplus4</string>
-		</array>
-
-		<key>com_hagame_sdk_fb_share_desc</key>
-		<string>"+com_hagame_sdk_fb_share_desc+@"</string>
-		<key>E758_game_name</key>
-		<string>"+E758_game_name+@"</string>
-		<key>E758_game_id</key>
-		<string>"+E758_game_id+@"</string>
-		<key>E758_fac_id</key>
-		<string>"+E758_fac_id+@"</string>
-		<key>E758_fac_key</key>
-		<string>"+E758_fac_key+@"</string>
-		<key>facebookFans</key>
-		<string>"+facebookFans+@"</string>
-		<key>facebookShare</key>
-		<string>"+facebookShare+@"</string>
-		<key>Game_Web_Url</key>
-		<string>"+Game_Web_Url+@"</string>
-		<key>GoogleClientID</key>
-		<string>"+GoogleClientId+@"</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>照片將記錄您的自動註冊帳號密碼</string>";
+		</array>";
         
         list.AddKey(PlistAdd);
        
