@@ -11,7 +11,7 @@ namespace UnityEditor.XCodeEditor
 		protected const string FRAMEWORK_SEARCH_PATHS_KEY = "FRAMEWORK_SEARCH_PATHS";
 		protected const string OTHER_C_FLAGS_KEY = "OTHER_CFLAGS";
 		protected const string OTHER_LDFLAGS_KEY = "OTHER_LDFLAGS";
-		
+		protected const string ENABLE_BITCODE = "ENABLE_BITCODE";
 		public XCBuildConfiguration( string guid, PBXDictionary dictionary ) : base( guid, dictionary )
 		{
 			
@@ -167,6 +167,26 @@ namespace UnityEditor.XCodeEditor
 
 			return modified;
 		}
+			
+
+		public bool SetBitcode( string isEnable )
+		{
+			bool modified = false;
+
+			if( !ContainsKey( BUILDSETTINGS_KEY ) )
+				this.Add( BUILDSETTINGS_KEY, new PBXSortedDictionary() );
+			
+
+			if (!((PBXDictionary)_data [BUILDSETTINGS_KEY]).ContainsKey (ENABLE_BITCODE)) {
+				((PBXDictionary)_data [BUILDSETTINGS_KEY]).Add (ENABLE_BITCODE, isEnable);
+			}
+			else {
+				((PBXDictionary)_data [BUILDSETTINGS_KEY])[ENABLE_BITCODE] = isEnable;
+			}
+
+			return modified;
+		}
+
 		
 		public bool overwriteBuildSetting(string settingName, string settingValue) {
 			Debug.Log ("overwriteBuildSetting " + settingName + " " + settingValue);
